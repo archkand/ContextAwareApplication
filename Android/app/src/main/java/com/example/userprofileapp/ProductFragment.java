@@ -135,7 +135,7 @@ public class ProductFragment extends Fragment implements ProductAdapter.prodInte
         beaconManager = new BeaconManager(getActivity());
         beaconManager.setBackgroundScanPeriod(3000L,3000L);
      //   beaconManager.setBackgroundScanPeriod(30000L,30000L);
-        beaconManager.setForegroundScanPeriod(3000L,3000L);
+        //beaconManager.setForegroundScanPeriod(5000L,5000L);
 //        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
 //            @Override
 //            public void onServiceReady() {
@@ -168,12 +168,12 @@ public class ProductFragment extends Fragment implements ProductAdapter.prodInte
                 if (!list.isEmpty()) {
                     Beacon nearestBeacon;
                     Log.d("Rg_check","current beacon list"+list.toString());
-                    if(list.size()>1 && currentbeacon !=null && Calendar.getInstance().getTimeInMillis()-currentbeacon.getDatetime()<5000 ){
+                    if(list.size()>1 && currentbeacon !=null && Calendar.getInstance().getTimeInMillis()-currentbeacon.getDatetime()<3000 ){
                         // do nothing
                     }
                     else{
                         nearestBeacon = list.get(0);
-                        if(nearestBeacon.getRssi()>-90){
+                        if(nearestBeacon.getRssi()>-86){
 
                         Log.d("pm","Beacon major and minor"+ nearestBeacon.getMajor()+" "+nearestBeacon.getMinor());
                         try {
@@ -185,7 +185,7 @@ public class ProductFragment extends Fragment implements ProductAdapter.prodInte
                         Log.d("pm", "Nearest products: " + productList);
                         Log.d("Rg_check","beacon power high"+ String.valueOf(nearestBeacon.getRssi()));
                         currentbeacon= new BeaconPojo(nearestBeacon.getMajor(),nearestBeacon.getMinor(), Calendar.getInstance().getTimeInMillis());
-                    }else{
+                    }/*else{
                             try {
                                 new ProductAPI(productURL,getActivity(),prodAdapter,productList,token,-1,-1).execute();
                                 //   prodAdapter.notifyDataSetChanged();
@@ -194,7 +194,7 @@ public class ProductFragment extends Fragment implements ProductAdapter.prodInte
                             }
                              Log.d("Rg_check","beacon power low"+ String.valueOf(nearestBeacon.getRssi()));
 
-                        }
+                        }*/
                     }
 
                 }else{

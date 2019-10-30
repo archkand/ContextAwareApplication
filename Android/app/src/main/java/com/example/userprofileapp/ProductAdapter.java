@@ -52,9 +52,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         final Product product = productList.get(position);
         holder.prodName.setText(product.getProductName());
         holder.prodPrice.setText(product.getProductPrice().toString());
-
-        double discount = ((product.getDiscount()/100.0))*product.getProductPrice();
-        holder.prodDiscount.setText(String.valueOf(Math.round(discount)));
+        Double discount_price= product.getProductPrice()-(((product.getDiscount()/100.0))*product.getProductPrice());
+        String discount = String.valueOf(Math.round(discount_price*100.0)/100.0);
+        holder.prodDiscount.setText(discount);
         Picasso.get().load(product.getImageLink()).into(holder.prodImage);
         //holder.prodImage.setImageURI(product.getProductImage());
         holder.add.setOnClickListener(new View.OnClickListener() {
